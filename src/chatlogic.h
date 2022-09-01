@@ -3,6 +3,10 @@
 
 #include <vector>
 #include <string>
+
+#include "graphedge.h"
+#include "graphnode.h"
+
 #include "chatgui.h"
 
 // forward declarations
@@ -13,15 +17,8 @@ class GraphNode;
 class ChatLogic
 {
 private:
-    //// STUDENT CODE
-    ////
-
     // data handles (owned)
-    std::vector<GraphNode *> _nodes;
-    std::vector<GraphEdge *> _edges;
-
-    ////
-    //// EOF STUDENT CODE
+    std::vector<std::unique_ptr<GraphNode>> _nodes;
 
     // data handles (not owned)
     GraphNode *_currentNode;
@@ -37,8 +34,10 @@ private:
 
 public:
     // constructor / destructor
-    ChatLogic();
-    ~ChatLogic();
+    ChatLogic()
+        : _currentNode(nullptr)
+        , _chatBot(nullptr)
+        , _panelDialog(nullptr) {};
 
     // getter / setter
     void SetPanelDialogHandle(ChatBotPanelDialog *panelDialog);
